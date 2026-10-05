@@ -4,7 +4,7 @@
 
     <groupId>com.lunatech.keycloak</groupId>
     <artifactId>keycloak-google-groups-mapper</artifactId>
-    <version>0.8</version>
+    <version>0.8-fork.1</version>
 
     <name>Keycloak Google Groups Mapper</name>
     <description>An Identity Provider Mapper that fetches Google Groups membership information of a user that uses Google as Identity Provider and syncs it to Keycloak groups.</description>
@@ -15,7 +15,7 @@
         <java.version>21</java.version>
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
-        <keycloak.version>26.5.0</keycloak.version>
+        <keycloak.version>26.8.0</keycloak.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <distribution.name>${project.artifactId}</distribution.name>
     </properties>
@@ -89,11 +89,29 @@
             <version>6.0.3</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-junit-jupiter</artifactId>
+            <version>5.24.0</version>
+            <scope>test</scope>
+        </dependency>
 
     </dependencies>
 
     <build>
         <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.5.6</version>
+                <configuration>
+                    <systemPropertyVariables>
+                        <!-- Log through java.util.logging in tests, so log records can be captured -->
+                        <org.jboss.logging.provider>jdk</org.jboss.logging.provider>
+                    </systemPropertyVariables>
+                </configuration>
+            </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-assembly-plugin</artifactId>
